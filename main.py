@@ -112,6 +112,31 @@ class AppCLI:
                     print("No products in that range.")
             except ValueError:
                 print("Invalid price format.")
+    def export_to_csv(self):
+       
+        products = self.inventory_mgr.get_all_products()
+        if not products:
+            print("Cannot export. Inventory is empty.")
+            return
+
+        file_path = "data/inventory_report.csv"
+        headers = ["Product ID", "Name", "Price", "Quantity", "Category"]
+        try:
+         
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+            with open(file_path, mode="w", newline="", encoding="utf-8") as f:
+                writer = csv.writer(f)
+                writer.writerow(headers) 
+
+                for p in products:
+                    
+                    category = getattr(p, 'category', 'General')
+                    writer.writerow([p.id, p.name, p.price, p.quantity, category])
+
+            print(f"Success! Report generated dynamically and saved to '{file_path}'.")
+        except IOError as e:
+            print(f"File writing error: {e}")
 
    
     @admin_required
