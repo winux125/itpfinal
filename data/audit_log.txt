@@ -1,0 +1,2 @@
+[2026-05-26 13:23:41] Removed product: laptopgg (ID: 55)
+[2026-05-26 13:24:16] Added product: 9jo (ID: -55, Quantity: 0)
